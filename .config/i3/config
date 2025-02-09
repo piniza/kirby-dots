@@ -1,0 +1,161 @@
+# i3 config file (v4)
+
+set $mod Mod4
+
+exec --no-startup-id  ~/.config/i3/screen.sh
+
+# Font for i3wm.
+font pango:Cantarell 10
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# NetworkManager is the most popular way to manage wireless networks on Linux.
+exec --no-startup-id nm-applet
+
+#start xborders
+exec --no-startup-id ~/.config/xborders/xborders -c ~/.config/xborders/example_config.json
+
+# start polybar
+exec --no-startup-id ~/.config/polybar/launch.sh 
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# feh wallpaper set
+exec --no-startup-id feh --bg-fill ~/.config/wallpapers/wall.png
+
+# autotiling in i3wm
+exec_always --no-startup-id python3 ~/.config/i3/autotiling.py -w 1 3 5 7 9
+
+# task switcher
+bindsym $mod+Tab exec --no-startup-id python3 ~/.config/i3/taskswitcher.py
+
+# start a terminal
+bindsym $mod+Return exec --no-startup-id kitty
+bindsym $mod+Shift+Return exec --no-startup-id kitty --class FloatingTerminal
+
+# kill focused window
+bindsym $mod+q kill
+
+# start Thunar 
+bindsym $mod+t exec --no-startup-id thunar
+
+# start rofi
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-7/launcher.sh
+bindsym $mod+Shift+q exec --no-startup-id ~/.config/rofi/powermenu/type-5/powermenu.sh
+
+# change focus
+bindsym $mod+Left focus left 
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Ctrl+Left move left 50 px 
+bindsym $mod+Ctrl+Down move down 50 px 
+bindsym $mod+Ctrl+Up move up 50 px 
+bindsym $mod+Ctrl+Right move right 50 px 
+
+# Scratchpad move/show
+bindsym $mod+h move scratchpad
+bindsym $mod+Shift+h scratchpad show
+
+# resize focused window
+bindsym $mod+Shift+Left resize shrink width 40 px 
+bindsym $mod+Shift+Right resize grow width 40 px 
+bindsym $mod+Shift+Up resize shrink height 40 px 
+bindsym $mod+Shift+Down resize grow height 40 px 
+
+# Rules
+for_window [class="Sxiv"] floating enable
+for_window [class="Eww"] floating enable, resize set 400px 200px, move position center
+for_window [class="ncmpcpp"] floating enable, move position center
+for_window [class="FloatingTerminal"] floating enable
+
+# Ncmpcpp - Music Player
+bindsym $mod+m exec --no-startup-id kitty --class ncmpcpp -e ncmpcpp
+
+# Wallpaper changer
+bindsym $mod+w exec --no-startup-id ~/.config/i3/wall-d -d ~/.config/wallpapers -f
+
+# Clipboard Manager
+bindsym $mod+Shift+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -theme "$HOME"/.config/bspwm/src/rofi-themes/Clipboard.rasi -show clipboard -run-command '{cmd}'
+
+# Gaps
+gaps inner 10
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# toggle tiling / fullscreen
+bindsym $mod+Shift+f fullscreen toggle 
+bindsym $mod+Shift+g exec --no-startup-id ~/.config/polybar/scripts/polytoggle.sh
+
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload i3 and relaunch Polybar
+bindsym $mod+Shift+R exec --no-startup-id i3-msg reload && ~/.config/polybar/launch.sh
+
+
+# start picom
+exec --no-startup-id picom
+
+# remove titlebar
+for_window [class="^.*"] border pixel 0
+for_window [class="photoshop.exe"] focus disable
+for_window [class="photoshop.exe"] resize 1600x900 
+
+#uncomment these in case of native i3 borders instead of xborder
+# Set i3wm colors
+# target                  title   bg      text     indicator  border
+#client.focused           #ca9ee6 #ca9ee6 #1e1e2e  #ca9ee6    #ca9ee6
+#client.focused_inactive  #6c7086 #1e1e2e #cdd6f4  #ca9ee6    #6c7086
+#client.unfocused         #6c7086 #1e1e2e #cdd6f4  #ca9ee6    #6c7086
+#client.urgent            #ca9ee6 #1e1e2e #ca9ee6  #6c7086    #ca9ee6
+#client.placeholder       #6c7086 #1e1e2e #cdd6f4  #6c7086    #6c7086
+#client.background        #1e1e2e
+
+

@@ -1,0 +1,5 @@
+key_bindings:
+  - { key: Up,    mods: Shift, chars: "\x1b[1;2A" }
+  - { key: Down,  mods: Shift, chars: "\x1b[1;2B" }
+  - { key: Right, mods: Shift, chars: "\x1b[1;2C" }
+  - { key: Left,  mods: Shift, chars: "\x1b[1;2D" }

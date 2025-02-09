@@ -1,0 +1,14 @@
+// Rofi colors for Aline
+
+* {
+    font: "JetBrainsMono NF Bold 9";
+    background: #faf4ed;
+    bg-alt: #f2e9e1;
+    background-alt: #faf4edE0;
+    foreground: #575279;
+    selected: #d7827e;
+    active: #286983;
+    urgent: #ea9d34;
+
+    img-background: url("~/.config/bspwm/rices/aline/rofi.webp", width);
+}

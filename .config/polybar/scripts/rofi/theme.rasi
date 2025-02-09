@@ -1,0 +1,100 @@
+configuration {
+	font:                           "Iosevka Nerd Font 10";
+	show-icons:                     true;
+	icon-theme:                     "Adwaita";
+	display-drun:                   "";
+	drun-display-format:            "{name}";
+	disable-history:                false;
+	fullscreen:                     false;
+	hide-scrollbar:                 true;
+	sidebar-mode:                   false;
+}
+
+@import "colors.rasi"
+
+window {
+    transparency:                   "real";
+    background-color:               @bg;
+    text-color:                     @fg;
+	border:                         0px;
+	border-color:                   @ac;
+    border-radius:                  12px;
+	width:                          70%; /* Larger width for preview */
+    height:                         70%; /* Larger height for preview */
+    location:                       center;
+    x-offset:                       0;
+    y-offset:                       0;
+}
+
+listview {
+    background-color:               @al;
+    padding:                        10px;
+    columns:                        3; /* Grid columns */
+    lines:                          3; /* Grid rows */
+    spacing:                        10px; /* Space between items */
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         horizontal;
+}
+
+element {
+    background-color:               @al;
+    text-color:                     @fg;
+    orientation:                    vertical; /* Adjusted for grid display */
+    border-radius:                  8px;
+    padding:                        6px;
+}
+
+element selected {
+    background-color:               @bg3;
+    text-color:                     @bg;
+    border-radius:                  8px;
+    border-color:                   @bg1;
+}
+
+element-icon {
+    background-color:               transparent;
+    text-color:                     inherit;
+    size:                           200px; /* Increased size for better preview */
+    border:                         0px;
+}
+
+element-text {
+    background-color:               transparent;
+    text-color:                     inherit;
+    expand:                         true;
+    horizontal-align:               0.5; /* Center align text */
+    vertical-align:                 0.5;
+    margin:                         0px 2.5px 0px 2.5px;
+}
+
+inputbar {
+	children:                       [ prompt, entry ];
+    background-color:               @bg2;
+    text-color:                     #FFFFFF;
+    expand:                         false;
+	border:                         0px;
+    border-radius:                  12px;
+	border-color:                   @ac;
+    spacing:                        0px;
+}
+
+prompt {
+    enabled:                        true;
+	padding:                        10px 15px 10px 15px;
+	background-color:               @bg1;
+	text-color:                     #FFFFFF;
+	font:                           "Iosevka Nerd Font 10";
+}
+
+entry {
+    background-color:               @bg2;
+    text-color:                     #FFFFFF;
+    placeholder-color:              #FFFFFF;
+    expand:                         true;
+    horizontal-align:               0;
+    placeholder:                    "Search...";
+    padding:                        10px;
+    border-radius:                  0px 12px 12px 0px;
+    blink:                          true;
+}
